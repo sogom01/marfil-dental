@@ -72,8 +72,12 @@ function flattenZodIssues(error: ZodError): Record<string, string> {
 
 function safeClientAddress(addr: string | undefined): string | null {
   if (!addr) return null
-  // Astro entrega "ip:port" o solo "ip" según el adapter. Strip puerto si viene.
+  // Astro entrega "ip:port" o solo "ip" según el adapter.
   const trimmed = addr.split(',')[0]?.trim() ?? ''
   if (!trimmed) return null
+  // IPv6: más de un ":" → no tocar (::1, ::ffff:x.x.x.x, etc.)
+  // IPv4: un solo ":" indica "ip:port" → quitar el puerto.
+  const colonCount = (trimmed.match(/:/g) ?? []).length
+  if (colonCount > 1) return trimmed
   return trimmed.replace(/:\d+$/, '')
 }
