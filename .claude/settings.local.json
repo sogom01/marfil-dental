@@ -28,7 +28,9 @@
       "Bash(git checkout *)",
       "Bash(where pnpm *)",
       "Bash(node_modules/.bin/lint-staged --version)",
-      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('package.json','utf8'\\)\\); console.log\\('package.json válido'\\)\")"
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('package.json','utf8'\\)\\); console.log\\('package.json válido'\\)\")",
+      "Bash(findstr /i \"zod supabase resend\")",
+      "Bash(pnpm list *)"
     ]
   }
 }
