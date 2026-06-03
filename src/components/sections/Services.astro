@@ -91,7 +91,14 @@ const services = [
     font-size: 0.95rem;
   }
 
+  /* tablet: 2 columnas */
   @media (max-width: 900px) {
+    .srv-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  /* móvil: 1 columna */
+  @media (max-width: 580px) {
     .srv-grid {
       grid-template-columns: 1fr;
     }

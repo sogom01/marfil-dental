@@ -42,7 +42,7 @@ const footerClinica = [
 
     <footer class="footer-mt bg-white pt-16 pb-8">
       <div class="wrap">
-        <div class="border-line flex flex-wrap justify-between gap-10 border-b pb-9">
+        <div class="footer-cols border-line border-b pb-9">
           <div class="max-w-[300px]">
             <a href="/" class="logo-brand"><span class="mark-badge">✦</span>MARFIL</a>
             <p class="text-navy-soft mt-3.5 text-[.92rem]">
@@ -88,7 +88,7 @@ const footerClinica = [
             <p class="text-navy-soft mb-2 text-[.92rem]">Lun–Vie 8am–7pm · Sáb 8am–1pm</p>
           </div>
         </div>
-        <div class="text-navy-soft flex flex-wrap justify-between gap-3 pt-6 text-[.82rem]">
+        <div class="footer-bar text-navy-soft pt-6 text-[.82rem]">
           <span>© {year} MARFIL Clínica Dental.</span>
           <a
             href="/politica-privacidad"
@@ -116,6 +116,49 @@ const footerClinica = [
         ></path>
       </svg>
     </a>
+
+    <style is:global>
+      /* ── Footer grid responsivo ─────────────────────────── */
+      .footer-cols {
+        display: grid;
+        grid-template-columns: 1.8fr 1fr 1fr 1fr;
+        gap: clamp(20px, 4vw, 40px);
+      }
+      /* tablet: 2×2 */
+      @media (max-width: 700px) {
+        .footer-cols {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      /* móvil pequeño: 1 col */
+      @media (max-width: 400px) {
+        .footer-cols {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ── Footer barra inferior ──────────────────────────── */
+      .footer-bar {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      @media (max-width: 520px) {
+        .footer-bar {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.35rem;
+        }
+      }
+
+      /* ── section-pad reducido en móvil ─────────────────── */
+      @media (max-width: 560px) {
+        .section-pad {
+          padding: clamp(56px, 9vh, 80px) 0;
+        }
+      }
+    </style>
 
     <script>
       // IntersectionObserver para animaciones .reveal en todas las páginas

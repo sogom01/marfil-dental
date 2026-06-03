@@ -28,17 +28,13 @@ const badges = [
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
-    padding: 38px 0;
+    padding: clamp(28px, 4vh, 48px) 0;
   }
+  /* tablet → 2×2, se mantiene hasta pantallas muy pequeñas */
   @media (max-width: 900px) {
     .badges-grid {
       grid-template-columns: 1fr 1fr;
-      gap: 28px;
-    }
-  }
-  @media (max-width: 480px) {
-    .badges-grid {
-      grid-template-columns: 1fr;
+      gap: 20px 28px;
     }
   }
 </style>

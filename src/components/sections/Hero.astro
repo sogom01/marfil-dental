@@ -190,5 +190,17 @@ const trustItems = [
     .hero-card {
       display: none;
     }
+    /* Reduce padding superior en pantallas bajas */
+    .hero-header {
+      padding-top: clamp(100px, 14vh, 128px);
+    }
+    /* Foto menos alta en móvil */
+    .photo {
+      aspect-ratio: 4 / 3;
+    }
+    /* Hero visual ocupa ancho completo en móvil chico */
+    .hero-visual {
+      max-width: 100%;
+    }
   }
 </style>
