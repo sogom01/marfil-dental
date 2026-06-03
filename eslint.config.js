@@ -6,23 +6,33 @@ import prettierConfig from 'eslint-config-prettier'
 export default tseslint.config(
   js.configs.recommended,
 
-  // TypeScript strict (sin type-checking por ahora; activar strictTypeChecked en Fase 2
-  // cuando el proyecto esté completamente tipado)
-  ...tseslint.configs.strict,
+  // Type-aware linting solo para TS/TSX puros. Los <script> dentro de .astro
+  // usan astro-eslint-parser, que no soporta parserOptions.project; ahí se
+  // aplican las reglas no-typed del plugin astro/recommended.
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [...tseslint.configs.strictTypeChecked],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
+      ],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+    },
+  },
 
-  // Soporte para archivos .astro
+  // .astro: las reglas TS las maneja eslint-plugin-astro (no se puede usar
+  // strictTypeChecked porque el parser embebido no expone parserOptions.project).
   ...astroPlugin.configs.recommended,
 
   // Prettier al último: desactiva reglas de formato que Prettier ya gestiona
   prettierConfig,
-
-  // Reglas personalizadas
-  {
-    rules: {
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
-    },
-  },
 
   // Ignora artefactos de build y dependencias
   {

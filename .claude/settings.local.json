@@ -20,7 +20,9 @@
       "Bash(pnpm lint *)",
       "Bash(pnpm test *)",
       "Bash(pnpm build *)",
-      "Bash(pnpm typecheck *)"
+      "Bash(pnpm typecheck *)",
+      "Bash(git commit -m ' *)",
+      "Bash(del src\\\\domain\\\\scheduling\\\\.gitkeep src\\\\infra\\\\repositories\\\\.gitkeep src\\\\infra\\\\email\\\\.gitkeep)"
     ]
   }
 }

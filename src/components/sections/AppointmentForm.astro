@@ -1,0 +1,327 @@
+---
+import { SERVICES, TIME_WINDOW_LABELS, TIME_WINDOWS } from '@/domain/scheduling/appointment'
+
+const todayIso = new Date().toISOString().slice(0, 10)
+---
+
+<section class="section-pad" id="cita">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Agendar online</span>
+      <h2>Pide tu cita en un minuto</h2>
+      <p>Déjanos tus datos y un horario preferido. Te llamamos para confirmar día y hora.</p>
+    </div>
+
+    <form id="appointment-form" class="appt-form reveal" novalidate aria-describedby="appt-status">
+      <div class="grid-2">
+        <label class="field">
+          <span>Nombre completo *</span>
+          <input
+            type="text"
+            name="patientName"
+            autocomplete="name"
+            required
+            minlength="2"
+            maxlength="80"
+          />
+        </label>
+
+        <label class="field">
+          <span>Teléfono *</span>
+          <input
+            type="tel"
+            name="patientPhone"
+            autocomplete="tel"
+            required
+            placeholder="+57 314 713 2470"
+          />
+        </label>
+
+        <label class="field">
+          <span>Email *</span>
+          <input
+            type="email"
+            name="patientEmail"
+            autocomplete="email"
+            required
+            placeholder="tucorreo@ejemplo.com"
+          />
+        </label>
+
+        <label class="field">
+          <span>Servicio *</span>
+          <select name="service" required>
+            <option value="">Selecciona un servicio</option>
+            {SERVICES.map((s) => <option value={s}>{s}</option>)}
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Fecha preferida *</span>
+          <input type="date" name="preferredDate" required min={todayIso} />
+        </label>
+
+        <label class="field">
+          <span>Franja horaria *</span>
+          <select name="timeWindow" required>
+            <option value="">Elige una franja</option>
+            {TIME_WINDOWS.map((tw) => <option value={tw}>{TIME_WINDOW_LABELS[tw]}</option>)}
+          </select>
+        </label>
+      </div>
+
+      <label class="field">
+        <span>¿Algo que debamos saber? (opcional)</span>
+        <textarea
+          name="notes"
+          rows="3"
+          maxlength="500"
+          placeholder="Síntomas, tratamientos previos, preferencias…"></textarea>
+      </label>
+
+      <label class="consent">
+        <input type="checkbox" name="consentGiven" required />
+        <span>
+          He leído y acepto la
+          <a href="/politica-privacidad">Política de privacidad</a>
+          y autorizo el tratamiento de mis datos personales (Ley 1581 de 2012).
+        </span>
+      </label>
+
+      <div class="actions">
+        <button type="submit" class="btn" id="appt-submit">Enviar solicitud</button>
+        <p id="appt-status" class="status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<style>
+  .appt-form {
+    max-width: 760px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 28px;
+    padding: clamp(28px, 4vh, 44px);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    font: inherit;
+    font-weight: 400;
+    color: var(--color-navy);
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1.5px solid var(--color-line);
+    background: var(--color-bg-soft);
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--color-teal);
+    background: white;
+  }
+  .field textarea {
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+  }
+  .field[data-error='true'] input,
+  .field[data-error='true'] select,
+  .field[data-error='true'] textarea {
+    border-color: var(--color-coral);
+  }
+  .field-error {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-coral);
+  }
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--color-navy-soft);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .consent input[type='checkbox'] {
+    margin-top: 4px;
+    accent-color: var(--color-teal);
+    flex: none;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  .consent a {
+    color: var(--color-teal-deep);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+  }
+  .status {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .status[data-tone='ok'] {
+    color: var(--color-teal-deep);
+  }
+  .status[data-tone='err'] {
+    color: var(--color-coral);
+  }
+  .appt-form[data-state='success'] .grid-2,
+  .appt-form[data-state='success'] textarea,
+  .appt-form[data-state='success'] .consent,
+  .appt-form[data-state='success'] button[type='submit'] {
+    display: none;
+  }
+
+  @media (max-width: 700px) {
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  type IssueMap = Record<string, string>
+  interface ApiResponse {
+    ok: boolean
+    appointmentId?: string
+    error?: string
+    issues?: IssueMap
+  }
+
+  const form = document.getElementById('appointment-form') as HTMLFormElement | null
+  const submitBtn = document.getElementById('appt-submit') as HTMLButtonElement | null
+  const statusEl = document.getElementById('appt-status') as HTMLParagraphElement | null
+
+  if (!form || !submitBtn || !statusEl) {
+    // No-op si el form no está en la página
+  } else {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault()
+      clearFieldErrors(form)
+      setStatus(statusEl, '', null)
+
+      const data = new FormData(form)
+      const payload = {
+        patientName: data.get('patientName'),
+        patientPhone: data.get('patientPhone'),
+        patientEmail: data.get('patientEmail'),
+        service: data.get('service'),
+        preferredDate: data.get('preferredDate'),
+        timeWindow: data.get('timeWindow'),
+        notes: data.get('notes') ?? undefined,
+        consentGiven: data.get('consentGiven') === 'on',
+      }
+
+      submitBtn.disabled = true
+      const originalLabel = submitBtn.textContent
+      submitBtn.textContent = 'Enviando…'
+
+      try {
+        const res = await fetch('/api/appointments', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+        const body = (await res.json()) as ApiResponse
+
+        if (res.ok && body.ok) {
+          form.dataset.state = 'success'
+          setStatus(
+            statusEl,
+            '¡Solicitud recibida! Te contactaremos pronto para confirmar tu cita.',
+            'ok',
+          )
+          return
+        }
+
+        if (body.issues) applyFieldErrors(form, body.issues)
+        setStatus(
+          statusEl,
+          body.error ?? 'No pudimos enviar la solicitud. Intenta de nuevo.',
+          'err',
+        )
+      } catch (err) {
+        console.error('[appointment-form]', err)
+        setStatus(
+          statusEl,
+          'Error de conexión. Revisa tu internet o escríbenos por WhatsApp.',
+          'err',
+        )
+      } finally {
+        submitBtn.disabled = false
+        submitBtn.textContent = originalLabel
+      }
+    })
+  }
+
+  function setStatus(el: HTMLParagraphElement, message: string, tone: 'ok' | 'err' | null): void {
+    el.textContent = message
+    if (tone) {
+      el.dataset.tone = tone
+    } else {
+      delete el.dataset.tone
+    }
+  }
+
+  function clearFieldErrors(formEl: HTMLFormElement): void {
+    formEl.querySelectorAll<HTMLElement>('.field[data-error="true"]').forEach((f) => {
+      delete f.dataset.error
+    })
+    formEl.querySelectorAll('.field-error').forEach((el) => {
+      el.remove()
+    })
+  }
+
+  function applyFieldErrors(formEl: HTMLFormElement, issues: IssueMap): void {
+    for (const [name, message] of Object.entries(issues)) {
+      const input = formEl.querySelector<HTMLElement>(`[name="${cssEscape(name)}"]`)
+      const field = input?.closest<HTMLElement>('.field')
+      if (!field) continue
+      field.dataset.error = 'true'
+      const errEl = document.createElement('span')
+      errEl.className = 'field-error'
+      errEl.textContent = message
+      field.appendChild(errEl)
+    }
+  }
+
+  function cssEscape(value: string): string {
+    // CSS.escape no está siempre tipado en lib.dom; fallback simple
+    return typeof CSS !== 'undefined' && typeof CSS.escape === 'function'
+      ? CSS.escape(value)
+      : value.replace(/["\\]/g, '\\$&')
+  }
+</script>
