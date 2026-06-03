@@ -1,40 +1,153 @@
 ---
 const badges = [
-  { icon: '🛡️', title: 'Tecnología 3D', desc: 'Diagnóstico preciso' },
-  { icon: '💳', title: 'Financiación', desc: 'Hasta 12 cuotas' },
-  { icon: '🕐', title: 'Horario amplio', desc: 'Sábados incluidos' },
-  { icon: '🤍', title: 'Primera valoración', desc: 'Sin costo' },
+  {
+    title: 'Tecnología 3D',
+    desc: 'Diagnóstico preciso',
+    svg: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+  },
+  {
+    title: 'Financiación',
+    desc: 'Hasta 12 cuotas',
+    svg: '<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="8" y2="15"/><line x1="10" y1="15" x2="14" y2="15"/>',
+  },
+  {
+    title: 'Horario amplio',
+    desc: 'Sábados incluidos',
+    svg: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  },
+  {
+    title: 'Primera valoración',
+    desc: 'Sin costo',
+    svg: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>',
+  },
 ]
 ---
 
-<section class="bg-white">
-  <div class="wrap badges-grid">
-    {
-      badges.map(({ icon, title, desc }) => (
-        <div class="flex items-center gap-3.5">
-          <span class="text-[1.6rem]">{icon}</span>
-          <div>
-            <b class="font-display block text-[1rem]">{title}</b>
-            <span class="text-navy-soft text-[.85rem]">{desc}</span>
+<section class="badges-wrap">
+  <div class="wrap">
+    <div class="badges-grid">
+      {
+        badges.map(({ title, desc, svg }) => (
+          <div class="badge">
+            <div
+              class="badge-ic"
+              set:html={`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" aria-hidden="true">${svg}</svg>`}
+            />
+            <div class="badge-text">
+              <strong>{title}</strong>
+              <span>{desc}</span>
+            </div>
           </div>
-        </div>
-      ))
-    }
+        ))
+      }
+    </div>
   </div>
 </section>
 
 <style>
+  /* ── Contenedor ─────────────────────────────────────────── */
+  .badges-wrap {
+    background: var(--color-bg-soft);
+    border-top: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+    padding: clamp(18px, 3.5vh, 32px) 0;
+  }
+
+  /* ── Grid desktop: 4 cols con dividers ──────────────────── */
   .badges-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    padding: clamp(28px, 4vh, 48px) 0;
   }
-  /* tablet → 2×2, se mantiene hasta pantallas muy pequeñas */
+
+  .badge {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 6px 24px;
+    border-right: 1px solid var(--color-line);
+  }
+  .badge:first-child {
+    padding-left: 0;
+  }
+  .badge:last-child {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  /* ── Icono ──────────────────────────────────────────────── */
+  .badge-ic {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--color-mint);
+    color: var(--color-teal-deep);
+    display: grid;
+    place-items: center;
+  }
+
+  /* ── Texto ──────────────────────────────────────────────── */
+  .badge-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .badge-text strong {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.25;
+  }
+  .badge-text span {
+    font-size: 0.82rem;
+    color: var(--color-navy-soft);
+  }
+
+  /* ── Tablet / móvil: 2×2 con separadores de 1 px ────────── */
   @media (max-width: 900px) {
+    .badges-wrap {
+      padding: 0;
+    }
     .badges-grid {
       grid-template-columns: 1fr 1fr;
-      gap: 20px 28px;
+      gap: 1px;
+      background: var(--color-line); /* el gap muestra la línea */
+    }
+    .badge {
+      border-right: none;
+      padding: 20px 18px;
+      background: var(--color-bg-soft);
+      gap: 12px;
+    }
+    .badge:first-child {
+      padding-left: 18px;
+    }
+    .badge:last-child {
+      padding-right: 18px;
+    }
+    .badge-ic {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+  }
+
+  /* ── Móvil pequeño (< 380 px) ───────────────────────────── */
+  @media (max-width: 380px) {
+    .badge {
+      padding: 16px 14px;
+      gap: 10px;
+    }
+    .badge:first-child {
+      padding-left: 14px;
+    }
+    .badge:last-child {
+      padding-right: 14px;
+    }
+    .badge-ic {
+      width: 36px;
+      height: 36px;
     }
   }
 </style>
