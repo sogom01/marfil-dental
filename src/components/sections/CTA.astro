@@ -1,0 +1,100 @@
+<section class="section-pad cta-section" id="cita">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <h2>Tu primera valoración es gratis</h2>
+      <p>
+        Da el primer paso hacia la sonrisa que quieres. Agenda hoy por WhatsApp, te respondemos al
+        instante.
+      </p>
+      <div class="cta-consent">
+        <label class="consent-label">
+          <input type="checkbox" id="consent-cta" />
+          <span>
+            He leído y acepto la
+            <a href="/politica-privacidad" class="consent-link">Política de privacidad</a>
+            y autorizo el tratamiento de mis datos personales (Ley 1581 de 2012).
+          </span>
+        </label>
+      </div>
+      <a
+        href="https://wa.me/573147132470"
+        class="btn"
+        id="wa-cta-btn"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-disabled="true"
+      >
+        Agendar por WhatsApp →
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    text-align: center;
+  }
+  .cta-box {
+    background: linear-gradient(135deg, var(--color-teal), var(--color-teal-deep));
+    border-radius: 36px;
+    padding: clamp(50px, 8vh, 90px) 30px;
+    color: #fff;
+    box-shadow: var(--shadow-card);
+  }
+  .cta-box h2 {
+    color: #fff;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    max-width: 640px;
+    margin: 0 auto 0.3em;
+  }
+  .cta-box > p {
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 440px;
+    margin: 0 auto 30px;
+  }
+  .cta-box .btn {
+    background: #fff;
+    color: var(--color-teal-deep);
+  }
+  .cta-box .btn:hover {
+    background: var(--color-navy);
+    color: #fff;
+  }
+
+  .cta-consent {
+    margin: 0 auto 24px;
+    max-width: 440px;
+    text-align: left;
+  }
+  .consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.5;
+  }
+  .consent-label input[type='checkbox'] {
+    margin-top: 3px;
+    accent-color: var(--color-teal-deep);
+    flex: none;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  .consent-link {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>
+
+<script>
+  const consentCta = document.querySelector<HTMLInputElement>('#consent-cta')
+  const waBtn = document.getElementById('wa-cta-btn')
+  consentCta?.addEventListener('change', () => {
+    waBtn?.setAttribute('aria-disabled', consentCta.checked ? 'false' : 'true')
+  })
+</script>

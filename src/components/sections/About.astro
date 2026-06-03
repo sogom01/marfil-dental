@@ -1,0 +1,96 @@
+---
+const bullets = [
+  'Especialistas certificados en cada área',
+  'Planes de tratamiento claros y a tu medida',
+  'Ambiente cálido pensado para tu comodidad',
+  'Tecnología que hace los procedimientos más rápidos',
+]
+---
+
+<section class="section-pad" id="nosotros">
+  <div class="about-wrap">
+    <div class="wrap about-inner">
+      <div class="about-grid">
+        <div class="reveal about-img">
+          <img
+            src="https://images.unsplash.com/photo-1606811841689-23dfdb944d6f?auto=format&fit=crop&w=900&q=80"
+            alt="Equipo de la clínica MARFIL"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="reveal">
+          <span class="eyebrow">Por qué MARFIL</span>
+          <h2>Una clínica que se siente diferente</h2>
+          <p>
+            Sabemos que ir al odontólogo da nervios. Por eso diseñamos cada detalle para que te
+            sientas tranquilo: explicamos todo con claridad, sin letra pequeña, y vamos a tu ritmo.
+          </p>
+          <ul class="about-list">
+            {bullets.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-wrap {
+    background: var(--color-navy);
+    color: #fff;
+    border-radius: 36px;
+    margin: 0 clamp(12px, 3vw, 24px);
+  }
+  .about-inner {
+    padding-top: clamp(50px, 8vh, 80px);
+    padding-bottom: clamp(50px, 8vh, 80px);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+
+  .about-wrap h2 {
+    color: #fff;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    margin: 0.25em 0 0.6em;
+  }
+  .about-wrap p {
+    color: rgba(255, 255, 255, 0.72);
+    margin-bottom: 18px;
+  }
+
+  .about-img {
+    aspect-ratio: 5/4;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+  .about-list {
+    list-style: none;
+    margin-top: 24px;
+  }
+  .about-list li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .about-list li::before {
+    content: '✓';
+    color: var(--color-teal);
+    font-weight: 800;
+  }
+
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .about-img {
+      order: -1;
+    }
+  }
+</style>

@@ -1,0 +1,116 @@
+---
+const testimonials = [
+  {
+    initials: 'LM',
+    name: 'Laura M.',
+    service: 'Ortodoncia',
+    quote:
+      'Le tenía pánico al odontólogo y aquí me sentí súper tranquila. El trato es increíble y todo me lo explicaron con paciencia.',
+  },
+  {
+    initials: 'JR',
+    name: 'Julián R.',
+    service: 'Implante dental',
+    quote:
+      'Me hice un implante y quedó perfecto. Nada de dolor y el resultado se ve totalmente natural. Recomendados al 100%.',
+  },
+  {
+    initials: 'VC',
+    name: 'Valentina C.',
+    service: 'Estética dental',
+    quote:
+      'El blanqueamiento me cambió la sonrisa en una sola cita. La clínica es bellísima y muy limpia. Volveré sin duda.',
+  },
+]
+---
+
+<section class="section-pad" id="opiniones">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Lo que dicen nuestros pacientes</span>
+      <h2>Sonrisas que hablan por sí solas</h2>
+    </div>
+    <div class="tst-grid">
+      {
+        testimonials.map(({ initials, name, service, quote }) => (
+          <div class="tst reveal">
+            <div class="stars">★★★★★</div>
+            <p>"{quote}"</p>
+            <div class="who">
+              <div class="av">{initials}</div>
+              <div>
+                <b>{name}</b>
+                <span>{service}</span>
+              </div>
+            </div>
+            <p class="disclaimer">* Nombre cambiado. Testimonio ilustrativo.</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .tst-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .tst {
+    background: white;
+    border-radius: 22px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+  .stars {
+    color: #ffb400;
+    font-size: 0.9rem;
+    margin-bottom: 14px;
+  }
+  .tst > p {
+    font-size: 1rem;
+    color: var(--color-navy);
+    flex: 1;
+    margin-bottom: 20px;
+  }
+  .who {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .av {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-mint);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--color-teal-deep);
+    flex: none;
+  }
+  .who b {
+    display: block;
+    font-size: 0.95rem;
+  }
+  .who span {
+    font-size: 0.8rem;
+    color: var(--color-navy-soft);
+  }
+  .disclaimer {
+    font-size: 0.72rem;
+    color: var(--color-navy-soft);
+    opacity: 0.7;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  @media (max-width: 900px) {
+    .tst-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

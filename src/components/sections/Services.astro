@@ -1,0 +1,99 @@
+---
+const services = [
+  {
+    icon: '✨',
+    title: 'Limpieza & Prevención',
+    desc: 'Profilaxis profunda y revisión completa para mantener tu boca sana.',
+  },
+  {
+    icon: '📐',
+    title: 'Ortodoncia',
+    desc: 'Brackets tradicionales y alineadores invisibles para una mordida perfecta.',
+  },
+  {
+    icon: '🦷',
+    title: 'Implantes Dentales',
+    desc: 'Recupera dientes perdidos con soluciones fijas, naturales y duraderas.',
+  },
+  {
+    icon: '💎',
+    title: 'Estética Dental',
+    desc: 'Diseño de sonrisa, carillas y blanqueamiento para que brilles con seguridad.',
+  },
+  {
+    icon: '🪥',
+    title: 'Blanqueamiento',
+    desc: 'Resultados visibles en una sola sesión, sin dañar tu esmalte.',
+  },
+  {
+    icon: '🧸',
+    title: 'Odontopediatría',
+    desc: 'Atención amable y paciente para los más pequeños de la casa.',
+  },
+]
+---
+
+<section class="section-pad" id="servicios">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Nuestros servicios</span>
+      <h2>Todo para tu sonrisa<br />en un solo lugar</h2>
+      <p>Desde una limpieza hasta el tratamiento más completo, con el mismo equipo de confianza.</p>
+    </div>
+    <div class="srv-grid">
+      {
+        services.map(({ icon, title, desc }) => (
+          <div class="srv reveal">
+            <div class="srv-ic">{icon}</div>
+            <h3>{title}</h3>
+            <p>{desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .srv-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .srv {
+    background: white;
+    border-radius: 22px;
+    padding: 34px 30px;
+    transition: 0.3s;
+    border: 1px solid transparent;
+  }
+  .srv:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card);
+    border-color: var(--color-mint);
+  }
+  .srv-ic {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    background: var(--color-mint);
+    display: grid;
+    place-items: center;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+  .srv h3 {
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+  }
+  .srv p {
+    color: var(--color-navy-soft);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 900px) {
+    .srv-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

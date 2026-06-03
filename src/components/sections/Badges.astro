@@ -1,0 +1,44 @@
+---
+const badges = [
+  { icon: '🛡️', title: 'Tecnología 3D', desc: 'Diagnóstico preciso' },
+  { icon: '💳', title: 'Financiación', desc: 'Hasta 12 cuotas' },
+  { icon: '🕐', title: 'Horario amplio', desc: 'Sábados incluidos' },
+  { icon: '🤍', title: 'Primera valoración', desc: 'Sin costo' },
+]
+---
+
+<section class="bg-white">
+  <div class="wrap badges-grid">
+    {
+      badges.map(({ icon, title, desc }) => (
+        <div class="flex items-center gap-3.5">
+          <span class="text-[1.6rem]">{icon}</span>
+          <div>
+            <b class="font-display block text-[1rem]">{title}</b>
+            <span class="text-navy-soft text-[.85rem]">{desc}</span>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .badges-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 38px 0;
+  }
+  @media (max-width: 900px) {
+    .badges-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+  }
+  @media (max-width: 480px) {
+    .badges-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

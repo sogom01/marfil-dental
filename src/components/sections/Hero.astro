@@ -1,0 +1,194 @@
+---
+const trustItems = [
+  { value: '+15', label: 'años cuidando sonrisas' },
+  { value: '4.9 ★', label: 'valoración promedio en Google' },
+  { value: '8.000+', label: 'pacientes atendidos' },
+]
+---
+
+<header class="hero-header">
+  <div class="wrap hero-grid">
+    <div class="hero">
+      <span class="eyebrow">Clínica dental · Manizales</span>
+      <h1>Sonríe con<br /><span class="accent">total confianza</span>.</h1>
+      <p>
+        Odontología moderna, cálida y sin dolor. Cuidamos tu sonrisa con la última tecnología y un
+        trato que te hace sentir en casa.
+      </p>
+      <div class="hero-actions">
+        <a href="/#cita" class="btn">Agenda tu valoración →</a>
+        <a href="/#servicios" class="btn btn-navy">Ver servicios</a>
+      </div>
+      <div class="hero-trust">
+        {
+          trustItems.map(({ value, label }) => (
+            <div class="t">
+              <div class="n">{value}</div>
+              <div class="l">{label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="photo">
+        <img
+          src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=900&q=80"
+          alt="Paciente sonriendo en clínica dental"
+        />
+      </div>
+      <div class="hero-card c1">
+        <div class="ic">🦷</div>
+        <div class="tx"><b>Sin dolor</b><span>Sedación consciente</span></div>
+      </div>
+      <div class="hero-card c2">
+        <div class="ic">😊</div>
+        <div class="tx"><b>Pacientes felices</b><span class="stars">★★★★★</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hero-header {
+    padding: clamp(130px, 17vh, 180px) 0 clamp(60px, 9vh, 100px);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    margin: 0.18em 0 0.35em;
+  }
+  .hero p {
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    color: var(--color-navy-soft);
+    max-width: 480px;
+    margin-bottom: 32px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .hero-trust {
+    display: flex;
+    gap: 28px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+  }
+  .hero-trust .n {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--color-navy);
+  }
+  .hero-trust .l {
+    font-size: 0.82rem;
+    color: var(--color-navy-soft);
+  }
+
+  .hero-visual {
+    position: relative;
+  }
+  .photo {
+    aspect-ratio: 4/4.4;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+
+  .hero-card {
+    position: absolute;
+    background: white;
+    border-radius: 18px;
+    padding: 16px 20px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-card.c1 {
+    top: 24px;
+    left: -28px;
+  }
+  .hero-card.c2 {
+    bottom: 30px;
+    right: -24px;
+  }
+  .hero-card .ic {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--color-mint);
+    display: grid;
+    place-items: center;
+    font-size: 1.2rem;
+    flex: none;
+  }
+  .hero-card .tx b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+  }
+  .hero-card .tx span {
+    font-size: 0.8rem;
+    color: var(--color-navy-soft);
+  }
+  .stars {
+    color: #ffb400;
+    font-size: 0.9rem;
+  }
+
+  /* Animaciones de entrada del hero */
+  .hero > * {
+    opacity: 0;
+    animation: rise 0.85s forwards;
+  }
+  .hero-visual {
+    opacity: 0;
+    animation: rise 0.85s 0.5s forwards;
+  }
+  .hero .eyebrow {
+    animation-delay: 0.15s;
+  }
+  .hero h1 {
+    animation-delay: 0.28s;
+  }
+  .hero p {
+    animation-delay: 0.42s;
+  }
+  .hero-actions {
+    animation-delay: 0.54s;
+  }
+  .hero-trust {
+    animation-delay: 0.64s;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-visual {
+      max-width: 420px;
+      margin: 10px auto 0;
+    }
+    .hero-card.c1 {
+      left: 0;
+    }
+    .hero-card.c2 {
+      right: 0;
+    }
+  }
+  @media (max-width: 480px) {
+    .hero-card {
+      display: none;
+    }
+  }
+</style>
