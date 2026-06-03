@@ -16,6 +16,12 @@
     "test:coverage": "vitest run --coverage",
     "prepare": "husky"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  },
   "lint-staged": {
     "*.{ts,tsx,astro}": [
       "eslint --fix",
