@@ -23,131 +23,127 @@ const badges = [
 ]
 ---
 
-<section class="badges-wrap">
-  <div class="wrap">
-    <div class="badges-grid">
-      {
-        badges.map(({ title, desc, svg }) => (
-          <div class="badge">
-            <div
-              class="badge-ic"
-              set:html={`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" aria-hidden="true">${svg}</svg>`}
-            />
-            <div class="badge-text">
-              <strong>{title}</strong>
-              <span>{desc}</span>
-            </div>
+<section class="trust-band">
+  <div class="wrap trust-grid">
+    {
+      badges.map(({ title, desc, svg }) => (
+        <div class="trust-item">
+          <div
+            class="trust-icon"
+            set:html={`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" aria-hidden="true">${svg}</svg>`}
+          />
+          <div class="trust-copy">
+            <strong>{title}</strong>
+            <span>{desc}</span>
           </div>
-        ))
-      }
-    </div>
+        </div>
+      ))
+    }
   </div>
 </section>
 
 <style>
-  /* ── Contenedor ─────────────────────────────────────────── */
-  .badges-wrap {
-    background: var(--color-bg-soft);
+  /* ── Sección ─────────────────────────────────────────────── */
+  .trust-band {
+    background: var(--color-bg);
+    padding: clamp(28px, 5vh, 52px) 0;
     border-top: 1px solid var(--color-line);
     border-bottom: 1px solid var(--color-line);
-    padding: clamp(18px, 3.5vh, 32px) 0;
   }
 
-  /* ── Grid desktop: 4 cols con dividers ──────────────────── */
-  .badges-grid {
+  /* ── Grid desktop: 4 columnas centradas ──────────────────── */
+  .trust-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
   }
 
-  .badge {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 6px 24px;
-    border-right: 1px solid var(--color-line);
-  }
-  .badge:first-child {
-    padding-left: 0;
-  }
-  .badge:last-child {
-    border-right: none;
-    padding-right: 0;
-  }
-
-  /* ── Icono ──────────────────────────────────────────────── */
-  .badge-ic {
-    flex: none;
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: var(--color-mint);
-    color: var(--color-teal-deep);
-    display: grid;
-    place-items: center;
-  }
-
-  /* ── Texto ──────────────────────────────────────────────── */
-  .badge-text {
+  .trust-item {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    padding: 8px 28px;
+    position: relative;
   }
-  .badge-text strong {
+
+  /* Divisor vertical entre items (pseudo-elemento) */
+  .trust-item + .trust-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 52%;
+    background: var(--color-line);
+  }
+
+  /* ── Icono con gradiente teal ────────────────────────────── */
+  .trust-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--color-teal), var(--color-teal-deep));
+    color: #fff;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  /* ── Texto centrado ──────────────────────────────────────── */
+  .trust-copy strong {
     font-family: var(--font-display);
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--color-navy);
+    display: block;
     line-height: 1.25;
+    margin-bottom: 3px;
   }
-  .badge-text span {
-    font-size: 0.82rem;
+  .trust-copy span {
+    font-size: 0.83rem;
     color: var(--color-navy-soft);
   }
 
-  /* ── Tablet / móvil: 2×2 con separadores de 1 px ────────── */
+  /* ── Móvil: 4 tarjetas flotantes en 2×2 ─────────────────── */
   @media (max-width: 900px) {
-    .badges-wrap {
-      padding: 0;
+    .trust-band {
+      padding: clamp(20px, 4vh, 36px) 0;
     }
-    .badges-grid {
+    .trust-grid {
       grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--color-line); /* el gap muestra la línea */
-    }
-    .badge {
-      border-right: none;
-      padding: 20px 18px;
-      background: var(--color-bg-soft);
       gap: 12px;
     }
-    .badge:first-child {
-      padding-left: 18px;
+    .trust-item {
+      background: white;
+      border-radius: 20px;
+      padding: 24px 16px;
+      gap: 12px;
+      box-shadow: 0 2px 16px rgba(14, 58, 71, 0.08);
     }
-    .badge:last-child {
-      padding-right: 18px;
-    }
-    .badge-ic {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+    /* ocultar divisores en móvil */
+    .trust-item + .trust-item::before {
+      display: none;
     }
   }
 
-  /* ── Móvil pequeño (< 380 px) ───────────────────────────── */
-  @media (max-width: 380px) {
-    .badge {
-      padding: 16px 14px;
+  /* ── Móvil pequeño (< 400 px) ───────────────────────────── */
+  @media (max-width: 400px) {
+    .trust-grid {
       gap: 10px;
     }
-    .badge:first-child {
-      padding-left: 14px;
+    .trust-item {
+      padding: 20px 14px;
+      border-radius: 16px;
     }
-    .badge:last-child {
-      padding-right: 14px;
+    .trust-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
     }
-    .badge-ic {
-      width: 36px;
-      height: 36px;
+    .trust-copy strong {
+      font-size: 0.93rem;
     }
   }
 </style>
