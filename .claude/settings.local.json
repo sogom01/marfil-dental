@@ -22,7 +22,12 @@
       "Bash(pnpm build *)",
       "Bash(pnpm typecheck *)",
       "Bash(git commit -m ' *)",
-      "Bash(del src\\\\domain\\\\scheduling\\\\.gitkeep src\\\\infra\\\\repositories\\\\.gitkeep src\\\\infra\\\\email\\\\.gitkeep)"
+      "Bash(del src\\\\domain\\\\scheduling\\\\.gitkeep src\\\\infra\\\\repositories\\\\.gitkeep src\\\\infra\\\\email\\\\.gitkeep)",
+      "Bash(git check-ignore *)",
+      "Bash(git show-ref *)",
+      "Bash(git checkout *)",
+      "Bash(where pnpm *)",
+      "Bash(node_modules/.bin/lint-staged --version)"
     ]
   }
 }

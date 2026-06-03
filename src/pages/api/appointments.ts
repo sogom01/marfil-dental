@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro'
-import { ZodError } from 'zod'
+import type { ZodError } from 'zod'
 import { appointmentRequestSchema, toInsertPayload } from '@/domain/scheduling/appointment'
 import { createAppointment, isSupabaseConfigured } from '@/infra/repositories/appointmentsRepo'
 import { sendAppointmentEmails } from '@/infra/email/emailService'
